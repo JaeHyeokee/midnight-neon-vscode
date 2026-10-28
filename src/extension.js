@@ -9,7 +9,7 @@ const messages = {
 	REACTIVATED: "Neon dreams is already enabled. Reload to refresh JS settings.",
 	NOT_RUNNING: `Neon dreams isn't running.`,
 	ERROR_ACCESS_DENIED: "Neon Dreams was unable to modify the core VS code files needed to launch the extension. You may need to run VS code with admin privileges in order to enable Neon Dreams.",
-	ERROR_WORKBENCH_NOT_FOUND: "Neon Dreams could not find the workbench HTML file. This is likely due to a change in VS Code's internal structure. Please open an issue on the Synthwave '84 GitHub repository to report this.",
+	ERROR_WORKBENCH_NOT_FOUND: "Neon Dreams could not find the workbench HTML file. This is likely due to a change in VS Code's internal structure. Please open an issue at https://github.com/JaeHyeokee/midnight-neon-vscode/issues to report this.",
 	ERROR_GENERIC: "Something went wrong when starting neon dreams"
 };
 
@@ -17,10 +17,10 @@ const messages = {
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-	this.extensionName = 'RobbOwen.synthwave-vscode';
+	this.extensionName = 'JaeHyeokee.midnight-neon-vscode';
 	this.cntx = context;
 
-	const config = vscode.workspace.getConfiguration("synthwave84");
+	const config = vscode.workspace.getConfiguration("midnightNeon");
 
 	let disableGlow = config && config.disableGlow ? !!config.disableGlow : false;
 
@@ -31,7 +31,7 @@ function activate(context) {
 	const parsedBrightness = Math.floor(brightness * 255).toString(16).toUpperCase();
 	let neonBrightness = parsedBrightness;
 
-	let disposable = vscode.commands.registerCommand('synthwave84.enableNeon', function () {
+	let disposable = vscode.commands.registerCommand('midnightNeon.enableNeon', function () {
 		const appDir = path.dirname(vscode.env.appRoot);
 		const base = path.join(appDir, 'app', 'out', 'vs', 'code');
 
@@ -66,7 +66,7 @@ function activate(context) {
 					.replace(/^.*(<!-- SYNTHWAVE 84 --><script src="neondreams.js"><\/script><!-- NEON DREAMS -->).*\n?/mg, '');
 
 				// add script tag
-				output = html
+				output = output
 					.replace(/\<\/html\>/g, `	<!-- SYNTHWAVE 84 --><script src="neondreams.js"></script><!-- NEON DREAMS -->\n`);
 				output += '</html>';
 
@@ -95,7 +95,7 @@ function activate(context) {
 		}
 	});
 
-	let disable = vscode.commands.registerCommand('synthwave84.disableNeon', uninstall);
+	let disable = vscode.commands.registerCommand('midnightNeon.disableNeon', uninstall);
 
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(disable);

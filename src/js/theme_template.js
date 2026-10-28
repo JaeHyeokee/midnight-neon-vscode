@@ -3,16 +3,16 @@
   // Theme replacement CSS (Glow styles)
   //====================================
   const tokenReplacements = {
-    /* Red */
-    'fe4450': "color: #fff5f6; text-shadow: 0 0 2px #000, 0 0 10px #fc1f2c[NEON_BRIGHTNESS], 0 0 5px #fc1f2c[NEON_BRIGHTNESS], 0 0 25px #fc1f2c[NEON_BRIGHTNESS]; backface-visibility: hidden;",
-    /* Neon pink */
-    'ff7edb': "color: #f92aad; text-shadow: 0 0 2px #100c0f, 0 0 5px #dc078e33, 0 0 10px #fff3; backface-visibility: hidden;",
+    /* Aquamarine green */
+    'c2f8cb': "color: #f1f9f2; text-shadow: 0 0 2px #001709, 0 0 3px #3af759[NEON_BRIGHTNESS], 0 0 5px #3af759[NEON_BRIGHTNESS]; backface-visibility: hidden;",
+    /* Cyan */
+    '88dcf6': "color: #d1ebf3; text-shadow: 0 0 2px #001716, 0 0 3px #03edf9[NEON_BRIGHTNESS], 0 0 5px #03edf9[NEON_BRIGHTNESS]; backface-visibility: hidden;",
+    /* Berry pink */
+    'ff3d7f': "color: #ff3d7f; text-shadow: 0 0 8px #ff29c5[NEON_BRIGHTNESS]; backface-visibility: hidden;",
+    /* Orange */
+    'ffc19a': "color: #f9efe9; text-shadow: 0 0 2px #171200, 0 0 3px #ff7c29[NEON_BRIGHTNESS], 0 0 5px #ff7c29[NEON_BRIGHTNESS], 0 0 8px #ff7c29[NEON_BRIGHTNESS]; backface-visibility: hidden;",
     /* Yellow */
-    'fede5d': "color: #f4eee4; text-shadow: 0 0 2px #393a33, 0 0 8px #f39f05[NEON_BRIGHTNESS], 0 0 2px #f39f05[NEON_BRIGHTNESS]; backface-visibility: hidden;",
-    /* Green */
-    '72f1b8': "color: #72f1b8; text-shadow: 0 0 2px #100c0f, 0 0 10px #257c55[NEON_BRIGHTNESS], 0 0 35px #212724[NEON_BRIGHTNESS]; backface-visibility: hidden;",
-    /* Blue */
-    '36f9f6': "color: #fdfdfd; text-shadow: 0 0 2px #001716, 0 0 3px #03edf9[NEON_BRIGHTNESS], 0 0 5px #03edf9[NEON_BRIGHTNESS], 0 0 8px #03edf9[NEON_BRIGHTNESS]; backface-visibility: hidden;"
+    'fff9b8': "color: #fdfdfd; text-shadow: 0 0 2px #001716, 0 0 3px #ffce00[NEON_BRIGHTNESS], 0 0 5px #ffce00[NEON_BRIGHTNESS], 0 0 8px #ffce00[NEON_BRIGHTNESS]; backface-visibility: hidden;"
   };
 
   //=============================
@@ -49,7 +49,7 @@
    */
   const usingSynthwave = () => {
     const appliedTheme = document.querySelector('[class*="theme-json"]');
-    const synthWaveTheme = document.querySelector('[class*="RobbOwen-synthwave-vscode-themes"]');
+    const synthWaveTheme = document.querySelector('[class*="JaeHyeokee-midnight-neon-vscode-themes"]');
     return appliedTheme && synthWaveTheme;
   }
 
@@ -97,7 +97,7 @@
       newStyleTag.innerText = updatedThemeStyles.replace(/(\r\n|\n|\r)/gm, '');
       document.body.appendChild(newStyleTag);
       
-      console.log('Synthwave \'84: NEON DREAMS initialised!');
+      console.log('Midnight Neon: NEON DREAMS initialized!');
     }
 
     // disconnect the observer because we don't need it anymore
@@ -116,7 +116,7 @@
         // does the style div exist yet?
         const tokensEl = document.querySelector('.vscode-tokens-styles');
         if (readyForReplacement(tokensEl, tokenReplacements)) {
-          // If everything we need is ready, then initialise
+          // If everything we need is ready, then initialize
           initNeonDreams([DISABLE_GLOW], observer);
         } else {
           if (tokensEl) {
