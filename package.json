@@ -1,7 +1,7 @@
 {
     "name": "midnight-neon-vscode",
     "displayName": "Midnight Neon",
-    "description": "A Synthwave-inspired colour theme to satisfy your neon dreams",
+    "description": "A dark theme with pastel neon colours and an optional glow",
     "version": "0.1.0",
     "author": "JaeHyeokee",
     "publisher": "JaeHyeokee",
@@ -17,12 +17,13 @@
         "ui"
     ],
     "keywords": [
-        "retro",
-        "80s",
-        "synthwave",
         "cyberpunk",
+        "dark",
+        "midnight",
         "neon",
-        "dark"
+        "retro",
+        "synthwave",
+        "80s"
     ],
     "categories": [
         "Themes"
@@ -37,7 +38,7 @@
             {
                 "label": "Midnight Neon",
                 "uiTheme": "vs-dark",
-                "path": "./themes/synthwave-color-theme.json"
+                "path": "./themes/midnight-neon-color-theme.json"
             }
         ],
         "commands": [

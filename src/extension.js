@@ -13,6 +13,20 @@ const messages = {
 	ERROR_GENERIC: "Something went wrong when starting neon dreams"
 };
 
+const NEON_TAG = '<!-- MIDNIGHT NEON --><script src="midnightneon.js"></script><!-- MIDNIGHT NEON END -->';
+
+function escapeRegExp(s) {
+	return s.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&');
+}
+
+// Matches the tag line with optional leading tab and one trailing line break (CRLF or LF).
+const NEON_TAG_RE = new RegExp('\\t?' + escapeRegExp(NEON_TAG) + '(?:\\r?\\n)?', 'g');
+
+// The exact string inserted into the workbench HTML. Line ending follows the file's own.
+function neonInject(html) {
+	return '\t' + NEON_TAG + (html.includes('\r\n') ? '\r\n' : '\n');
+}
+
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -43,7 +57,7 @@ function activate(context) {
 		const [electronBase, workBenchFilename] = workbenchPaths;
 
 		const htmlFile = path.join(base, electronBase, "workbench", workBenchFilename);
-		const templateFile = path.join(base, electronBase, "workbench", "neondreams.js");
+		const templateFile = path.join(base, electronBase, "workbench", "midnightneon.js");
 
 		try {
 			// generate production theme JS
@@ -58,17 +72,15 @@ function activate(context) {
 			const html = fs.readFileSync(htmlFile, "utf-8");
 
 			// check if the tag is already there
-			const isEnabled = html.includes("neondreams.js");
+			const isEnabled = html.includes("<!-- MIDNIGHT NEON -->");
 
 			if (!isEnabled) {
-				// delete synthwave script tag if there
-				let output = html
-					.replace(/^.*(<!-- SYNTHWAVE 84 --><script src="neondreams.js"><\/script><!-- NEON DREAMS -->).*\n?/mg, '');
-
-				// add script tag
-				output = output
-					.replace(/\<\/html\>/g, `	<!-- SYNTHWAVE 84 --><script src="neondreams.js"></script><!-- NEON DREAMS -->\n`);
-				output += '</html>';
+				// insert the script tag line right before the closing </html> tag
+				const inject = neonInject(html);
+				const idx = html.lastIndexOf('</html>');
+				const output = idx === -1
+					? html + inject
+					: html.slice(0, idx) + inject + html.slice(idx);
 
 				fs.writeFileSync(htmlFile, output, "utf-8");
 
@@ -125,11 +137,11 @@ function uninstall() {
 		const html = fs.readFileSync(htmlFile, "utf-8");
 
 		// check if the tag is already there
-		const isEnabled = html.includes("neondreams.js");
+		const isEnabled = html.includes("<!-- MIDNIGHT NEON -->");
 
 		if (isEnabled) {
-			// delete synthwave script tag if there
-			let output = html.replace(/^.*(<!-- SYNTHWAVE 84 --><script src="neondreams.js"><\/script><!-- NEON DREAMS -->).*\n?/mg, '');
+			// remove the tag line regardless of line-ending style
+			const output = html.replace(NEON_TAG_RE, '');
 			fs.writeFileSync(htmlFile, output, "utf-8");
 
 			vscode.window

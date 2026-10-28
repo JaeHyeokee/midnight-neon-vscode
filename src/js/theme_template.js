@@ -20,7 +20,7 @@
   //=============================
 
   /**
-   * @summary Check if the style element exists and that it has synthwave '84 color content
+   * @summary Check if the style element exists and that it has Midnight Neon color content
    * @param {HTMLElement} tokensEl the style tag
    * @param {object} replacements key/value pairs of colour hex and the glow styles to replace them with
    * @returns {boolean}
@@ -44,25 +44,25 @@
   }, styles);
 
   /**
-   * @summary Checks if a theme is applied, and that the theme belongs to the Synthwave 84 family
+   * @summary Checks if a theme is applied, and that the theme belongs to the Midnight Neon family
    * @returns {boolean}
    */
-  const usingSynthwave = () => {
+  const usingMidnightNeon = () => {
     const appliedTheme = document.querySelector('[class*="theme-json"]');
-    const synthWaveTheme = document.querySelector('[class*="JaeHyeokee-midnight-neon-vscode-themes"]');
-    return appliedTheme && synthWaveTheme;
+    const midnightNeonTheme = document.querySelector('[class*="JaeHyeokee-midnight-neon-vscode-themes"]');
+    return appliedTheme && midnightNeonTheme;
   }
 
   /**
-   * @summary Checks if the theme is synthwave, and that the styles exist, ready for replacement
+   * @summary Checks if the theme is Midnight Neon, and that the styles exist, ready for replacement
    * @param {HTMLElement} tokensEl the style tag
    * @param {object} replacements key/value pairs of colour hex and the glow styles to replace them with
    * @returns 
    */
   const readyForReplacement = (tokensEl, tokenReplacements) => tokensEl 
     ? (
-      // only init if we're using a Synthwave 84 subtheme
-      usingSynthwave() &&         
+      // only init if we're using a Midnight Neon subtheme
+      usingMidnightNeon() &&         
       // does it have content ?
       themeStylesExist(tokensEl, tokenReplacements)
     )
@@ -81,7 +81,7 @@
     }
 
     // Add the theme styles if they don't already exist in the DOM
-    if (!document.querySelector('#synthwave-84-theme-styles')) {
+    if (!document.querySelector('#midnight-neon-theme-styles')) {
       const initialThemeStyles = tokensEl.innerText;
       
       // Replace tokens with glow styles
@@ -93,7 +93,7 @@
       updatedThemeStyles = `${updatedThemeStyles}[CHROME_STYLES]`;
   
       const newStyleTag = document.createElement('style');
-      newStyleTag.setAttribute("id", "synthwave-84-theme-styles");
+      newStyleTag.setAttribute("id", "midnight-neon-theme-styles");
       newStyleTag.innerText = updatedThemeStyles.replace(/(\r\n|\n|\r)/gm, '');
       document.body.appendChild(newStyleTag);
       
